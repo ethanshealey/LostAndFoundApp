@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/location1"
+        android:layout_width="350dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="31dp">
+
+        <TextView
+            android:id="@+id/location_name1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bitter_bold"
+            android:paddingLeft="25dp"
+            android:paddingTop="20dp"
+            android:text="NAME"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/location_location1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bitter"
+            android:paddingLeft="25dp"
+            android:paddingTop="70dp"
+            android:text="Location: " />
+
+        <TextView
+            android:id="@+id/location_details1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bitter"
+            android:paddingLeft="25dp"
+            android:paddingTop="100dp"
+            android:text="DETAILS" />
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
