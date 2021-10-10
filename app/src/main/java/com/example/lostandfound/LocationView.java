@@ -68,7 +68,10 @@ public class LocationView extends AppCompatActivity {
                        System.out.println(doc.getData().toString());
                        locName.setText(doc.getData().get("name").toString());
                        locLoc.setText(doc.getData().get("coords").toString());
-                       locDetails.setText(doc.getData().get("details").toString());
+                       if(doc.getData().get("details") != null)
+                           locDetails.setText(doc.getData().get("details").toString());
+                       else
+                           locDetails.setText("");
 
                    }
                }

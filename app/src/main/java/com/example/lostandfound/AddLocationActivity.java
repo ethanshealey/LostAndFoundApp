@@ -13,8 +13,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -48,6 +51,16 @@ public class AddLocationActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        List<String> locationNames = new ArrayList<>();
+
+        db.collection("Locations").get().addOnCompleteListener(task -> {
+           if(task.isSuccessful()) {
+               for(QueryDocumentSnapshot doc: task.getResult()) {
+                   locationNames.add(doc.getData().get("name").toString());
+               }
+           }
+        });
+
         addLocation = (Button) findViewById(R.id.addBtn);
         addLocation.setOnClickListener(v -> {
 
@@ -55,7 +68,11 @@ public class AddLocationActivity extends AppCompatActivity {
                 Snackbar.make(v, "Invalid location entered!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-            else if(!locCoords.getText().toString().matches("-?[1-9][0-9]*(\\.[0-9]+)?,\\s*-?[1-9][0-9]*(\\.[0-9]+)?") || locCoords.getText().toString().matches("")) {
+            else if(locationNames.contains(locName.getText().toString())) {
+                Snackbar.make(v, "The location name has already been used, please pick another!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+            else if(!locCoords.getText().toString().matches("^-?([1-8]?[1-9]*|[1-9]*0)\\.{1}\\d{1,}+,{1}\\s?+-?([1-8]?[1-9]|[1-9]0)\\.{1}\\d{1,}") || locCoords.getText().toString().matches("")) {
                 Snackbar.make(v, "Invalid coordinate given", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
