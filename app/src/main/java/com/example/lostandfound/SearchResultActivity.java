@@ -46,13 +46,14 @@ public class SearchResultActivity extends AppCompatActivity {
         // setup DB
         db = FirebaseFirestore.getInstance();
 
+        intent = getIntent();
+
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
-        toolBarLayout.setTitle("Results");
+        toolBarLayout.setTitle("Results for " + intent.getSerializableExtra("query").toString());
 
         // get location list
-        intent = getIntent();
         locations = (List<Locations>) intent.getSerializableExtra("locations");
 
         dyno = findViewById(R.id.dynamic);
