@@ -67,6 +67,7 @@ public class SearchActivity extends AppCompatActivity {
                 }
                 Intent resultsPage = new Intent(getApplicationContext(), SearchResultActivity.class);
                 resultsPage.putExtra("locations", (Serializable) results);
+                resultsPage.putExtra("query", (Serializable) query.getText().toString());
                 startActivity(resultsPage);
             }
             else {

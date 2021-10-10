@@ -58,6 +58,11 @@ public class SearchResultActivity extends AppCompatActivity {
         dyno = findViewById(R.id.dynamic);
         int i = 0;
 
+        if(locations.isEmpty()) {
+            Snackbar.make(dyno, "No results were found", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
+
         for(Locations loc: locations) {
             addCard(dyno, loc, i++);
         }
