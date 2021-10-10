@@ -92,6 +92,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         uiSettings.setZoomControlsEnabled(true);
         uiSettings.setMyLocationButtonEnabled(true);
         googleMap.setMapStyle(new MapStyleOptions(getResources().getString(R.string.style_json)));
+
         db.collection("Locations").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot doc : task.getResult()) {
