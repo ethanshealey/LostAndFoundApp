@@ -1,37 +1,33 @@
 package com.example.lostandfound;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.lostandfound.databinding.ActivityMapsBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -95,42 +91,57 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         uiSettings = mMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
         uiSettings.setMyLocationButtonEnabled(true);
-        db.collection("Locations").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot doc : task.getResult()) {
+        googleMap.setMapStyle(new MapStyleOptions(getResources().getString(R.string.style_json)));
+        db.collection("Locations").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot doc : task.getResult()) {
 
-                        // init name amd details
-                        String name, details;
+                    // init name amd details
+                    String name, details;
 
-                        // init lat and lng
-                        double lat, lng;
+                    // init lat and lng
+                    double lat, lng;
 
-                        // get coords
-                        lat = Double.parseDouble(doc.getData().get("coords").toString().split(",")[0]);
-                        lng = Double.parseDouble(doc.getData().get("coords").toString().split(",")[1]);
+                    // get coords
+                    lat = Double.parseDouble(doc.getData().get("coords").toString().split(",")[0]);
+                    lng = Double.parseDouble(doc.getData().get("coords").toString().split(",")[1]);
 
-                        // get name and details
-                        name = doc.getData().get("name").toString();
-                        details = doc.getData().get("details").toString();
+                    // get name and details
+                    name = doc.getData().get("name").toString();
+                    details = doc.getData().get("details").toString();
 
-                        // add marker on the map
-                        mMap.addMarker((new MarkerOptions().position(new LatLng(lat, lng)).title(name)));
+                    AtomicReference oldClickId = new AtomicReference("");
+                    // add marker on the map
+                    Marker m = mMap.addMarker((new MarkerOptions().position(new LatLng(lat, lng)).title(name)));
 
-                        // add location to list of locations
-                        Locations loc = new Locations();
-                        loc.setID(doc.getId());
-                        loc.setName(name);
-                        loc.setLat(doc.getData().get("coords").toString().split(",")[0]);
-                        loc.setLng(doc.getData().get("coords").toString().split(",")[1]);
-                        loc.setDetails(details);
-                        locations.add(loc);
-                    }
+                    mMap.setOnMarkerClickListener(marker -> {
+
+                        String clickId = marker.getId();
+
+                        if(clickId.matches((String) oldClickId.get())) {
+                            Intent intent = new Intent(getApplicationContext(), LocationView.class);
+                            intent.putExtra("Location", (Serializable) marker.getTitle());
+                            intent.putExtra("PREVIOUS", (Serializable) "MAPVIEW");
+                            startActivity(intent);
+                        }
+                        
+                        oldClickId.set(clickId);
+                        return false;
+                    });
+
+                    // add location to list of locations
+                    Locations loc = new Locations();
+                    loc.setID(doc.getId());
+                    loc.setName(name);
+                    loc.setLat(doc.getData().get("coords").toString().split(",")[0]);
+                    loc.setLng(doc.getData().get("coords").toString().split(",")[1]);
+                    loc.setDetails(details);
+                    locations.add(loc);
                 }
-                else {
-                    Log.w(TAG, "Error: " + task.getException());
-                }
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(35.973891187827405, -79.99543973385548), 7.0f));
+            }
+            else {
+                Log.w(TAG, "Error: " + task.getException());
             }
         });
     }

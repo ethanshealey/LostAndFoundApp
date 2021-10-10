@@ -5,8 +5,15 @@
       <map>
         <entry key="..\:/Users/Ethan/AndroidStudioProjects/LostAndFound/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3828125" />
         <entry key="..\:/Users/Ethan/AndroidStudioProjects/LostAndFound/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
+        <entry key="..\:/Users/Ethan/AndroidStudioProjects/LostAndFound/app/src/main/res/font/bitter.xml" value="0.23541666666666666" />
+        <entry key="..\:/Users/Ethan/AndroidStudioProjects/LostAndFound/app/src/main/res/layout-w936dp/content_scrolling.xml" value="0.15390625" />
         <entry key="..\:/Users/Ethan/AndroidStudioProjects/LostAndFound/app/src/main/res/layout/activity_add_location.xml" value="0.28940217391304346" />
+        <entry key="..\:/Users/Ethan/AndroidStudioProjects/LostAndFound/app/src/main/res/layout/activity_auth_view.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Ethan/AndroidStudioProjects/LostAndFound/app/src/main/res/layout/activity_location_view.xml" value="0.35260416666666666" />
+        <entry key="..\:/Users/Ethan/AndroidStudioProjects/LostAndFound/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/Ethan/AndroidStudioProjects/LostAndFound/app/src/main/res/layout/activity_maps.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Ethan/AndroidStudioProjects/LostAndFound/app/src/main/res/layout/activity_scrolling.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Ethan/AndroidStudioProjects/LostAndFound/app/src/main/res/layout/activity_signup.xml" value="0.33" />
         <entry key="..\:/Users/Ethan/AndroidStudioProjects/LostAndFound/app/src/main/res/layout/content_scrolling.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/Ethan/AndroidStudioProjects/LostAndFound/app/src/main/res/layout/list_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Ethan/AndroidStudioProjects/LostAndFound/app/src/main/res/layout/location_card.xml" value="0.36666666666666664" />

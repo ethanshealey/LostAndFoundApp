@@ -32,6 +32,8 @@ public class Locations implements java.io.Serializable {
         return this.Name;
     }
 
+    public String getCoords() { return this.Lat + ", " + this.Lng; }
+
     public String getLat() {
         return this.Lat;
     }
