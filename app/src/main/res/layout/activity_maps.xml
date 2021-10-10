@@ -26,9 +26,9 @@
             android:layout_width="225dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:backgroundTint="#FFFFFF"
+            android:backgroundTint="#252525"
             android:text="List View"
-            android:textColor="#1E1E1E"
+            android:textColor="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/addloc"
             app:layout_constraintStart_toStartOf="parent" />
 

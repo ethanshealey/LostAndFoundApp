@@ -1,42 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <androidx.cardview.widget.CardView
-        android:id="@+id/location1"
+        android:id="@+id/location2"
         android:layout_width="350dp"
         android:layout_height="150dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="31dp">
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="30dp"
+        android:background="@color/dark_black"
+        android:backgroundTint="@color/dark_black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/location_name1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
             android:fontFamily="@font/bitter_bold"
+            android:maxWidth="300dp"
+            android:maxLines="1"
             android:paddingLeft="25dp"
             android:paddingTop="20dp"
             android:text="NAME"
-            android:textSize="30sp" />
+            android:textColor="#9E9E9E"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/location_location1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
             android:fontFamily="@font/bitter"
+            android:maxWidth="300dp"
+            android:maxLines="2"
             android:paddingLeft="25dp"
             android:paddingTop="70dp"
-            android:text="Location: " />
+            android:text="Location: "
+            android:textColor="@color/gray"
+            tools:maxLines="1" />
 
         <TextView
             android:id="@+id/location_details1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
             android:fontFamily="@font/bitter"
+            android:maxWidth="300dp"
+            android:maxLines="2"
             android:paddingLeft="25dp"
             android:paddingTop="100dp"
-            android:text="DETAILS" />
+            android:text="DETAILS"
+            android:textColor="@color/gray"
+            />
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

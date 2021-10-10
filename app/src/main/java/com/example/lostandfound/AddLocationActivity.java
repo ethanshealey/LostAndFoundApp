@@ -1,5 +1,6 @@
 package com.example.lostandfound;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -30,6 +31,9 @@ public class AddLocationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_location);
+
+        ActionBar ab = getSupportActionBar();
+        ab.hide();
 
         locName = (TextView) findViewById(R.id.location_name1);
         locCoords = (TextView) findViewById(R.id.loc_location);
