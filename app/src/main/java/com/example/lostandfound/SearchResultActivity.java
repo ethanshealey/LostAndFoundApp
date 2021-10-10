@@ -3,8 +3,10 @@ package com.example.lostandfound;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.lostandfound.databinding.ActivityScrollingBinding;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,16 +17,17 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.lostandfound.databinding.ActivityScrollingBinding;
+import com.example.lostandfound.databinding.ActivitySearchResultBinding;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScrollingActivity extends AppCompatActivity {
+public class SearchResultActivity extends AppCompatActivity {
 
-    private ActivityScrollingBinding binding;
+    private ActivitySearchResultBinding binding;
+
     List<Locations> locations = new ArrayList<>();
     Intent intent;
 
@@ -37,7 +40,7 @@ public class ScrollingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityScrollingBinding.inflate(getLayoutInflater());
+        binding = ActivitySearchResultBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // setup DB
@@ -46,7 +49,7 @@ public class ScrollingActivity extends AppCompatActivity {
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
-        toolBarLayout.setTitle("Lost and Found");
+        toolBarLayout.setTitle("Results");
 
         // get location list
         intent = getIntent();
@@ -60,14 +63,10 @@ public class ScrollingActivity extends AppCompatActivity {
         }
 
         FloatingActionButton fab = binding.fab;
-        fab.setImageResource(R.drawable.search);
+        fab.setImageResource(R.drawable.back);
         fab.setOnClickListener(view -> {
-            intent = new Intent(getApplicationContext(), SearchActivity.class);
-            intent.putExtra("locations", (Serializable) locations);
-            startActivity(intent);
-            /*
-            intent = new Intent(getApplicationContext(), MapsActivity.class);
-            startActivity(intent);*/
+            Intent back = new Intent(getApplicationContext(), SearchActivity.class);
+            startActivity(back);
         });
     }
 

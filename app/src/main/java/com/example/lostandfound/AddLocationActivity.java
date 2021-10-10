@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 public class AddLocationActivity extends AppCompatActivity {
 
@@ -41,7 +39,7 @@ public class AddLocationActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.hide();
 
-        locName = (TextView) findViewById(R.id.location_name1);
+        locName = (TextView) findViewById(R.id.searchQuery);
         locCoords = (TextView) findViewById(R.id.loc_location);
         locDetails = (TextView) findViewById(R.id.loc_details);
 
@@ -61,7 +59,7 @@ public class AddLocationActivity extends AppCompatActivity {
            }
         });
 
-        addLocation = (Button) findViewById(R.id.addBtn);
+        addLocation = (Button) findViewById(R.id.searchBtn);
         addLocation.setOnClickListener(v -> {
 
             if(locName.getText().toString().matches("")) {

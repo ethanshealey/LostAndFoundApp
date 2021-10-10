@@ -72,7 +72,6 @@ public class LocationView extends AppCompatActivity {
                            locDetails.setText(doc.getData().get("details").toString());
                        else
                            locDetails.setText("");
-
                    }
                }
            }

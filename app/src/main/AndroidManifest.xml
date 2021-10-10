@@ -19,6 +19,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LostAndFound">
         <activity
+            android:name=".SearchResultActivity"
+            android:exported="true"
+            android:label="@string/title_activity_search_result"
+            android:theme="@style/Theme.LostAndFound.NoActionBar" />
+        <activity
+            android:name=".SearchActivity"
+            android:exported="true" />
+        <activity
             android:name=".AuthView"
             android:exported="true" />
         <activity

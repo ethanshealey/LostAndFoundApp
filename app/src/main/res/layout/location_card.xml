@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/location_name1"
+            android:id="@+id/searchQuery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
