@@ -7,13 +7,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class AddLocationActivity extends AppCompatActivity {
 
@@ -47,17 +50,28 @@ public class AddLocationActivity extends AppCompatActivity {
 
         addLocation = (Button) findViewById(R.id.addBtn);
         addLocation.setOnClickListener(v -> {
-            Map<String, Object> loc = new HashMap<>();
-            loc.put("name", locName.getText().toString());
-            loc.put("coords", locCoords.getText().toString());
-            loc.put("details", locDetails.getText().toString());
-            db.collection("Locations").add(loc).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                @Override
-                public void onSuccess(DocumentReference documentReference) {
-                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-                    startActivity(intent);
-                }
-            });
+
+            if(locName.getText().toString().matches("")) {
+                Snackbar.make(v, "Invalid location entered!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+            else if(!locCoords.getText().toString().matches("-?[1-9][0-9]*(\\.[0-9]+)?,\\s*-?[1-9][0-9]*(\\.[0-9]+)?") || locCoords.getText().toString().matches("")) {
+                Snackbar.make(v, "Invalid coordinate given", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+            else {
+                Map<String, Object> loc = new HashMap<>();
+                loc.put("name", locName.getText().toString());
+                loc.put("coords", locCoords.getText().toString());
+                loc.put("details", locDetails.getText().toString());
+                db.collection("Locations").add(loc).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                        startActivity(intent);
+                    }
+                });
+            }
         });
 
     }
