@@ -29,7 +29,7 @@
             android:paddingLeft="25dp"
             android:paddingTop="20dp"
             android:text="NAME"
-            android:textColor="#9E9E9E"
+            android:textColor="@color/gray"
             android:textSize="20sp" />
 
         <TextView

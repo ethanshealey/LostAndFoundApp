@@ -97,4 +97,10 @@ public class ScrollingActivity extends AppCompatActivity {
         // add the card
         vg.addView(v);
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent toMap = new Intent(getApplicationContext(), MapsActivity.class);
+        startActivity(toMap);
+    }
 }
