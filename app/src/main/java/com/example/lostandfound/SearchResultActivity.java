@@ -3,11 +3,14 @@ package com.example.lostandfound;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.lostandfound.databinding.ActivityScrollingBinding;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,38 +18,22 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.lostandfound.databinding.ActivityScrollingBinding;
+import com.example.lostandfound.databinding.ActivitySearchResultBinding;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/***
- * ScrollingActivity
- *
- * This activity handles the ListView page,
- * a floating action button, and n amount of
- * cards for each location in the database.
- * The floating actions button leads to `SearchActivity`,
- * and each card will lead to `LocationView`.
- */
+public class SearchResultActivity extends AppCompatActivity {
 
-public class ScrollingActivity extends AppCompatActivity {
+    private ActivitySearchResultBinding binding;
 
-    private ActivityScrollingBinding binding;
-
-    // init list of locations
     List<Locations> locations = new ArrayList<>();
-
-    // get the intent
     Intent intent;
 
-    // define the LinearLayout used to dynamically
-    // add cards for each location
     LinearLayout dyno;
 
-    // defined the firestore db
     FirebaseFirestore db;
     public static final String TAG = "LostAndFound";
 
@@ -54,63 +41,48 @@ public class ScrollingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityScrollingBinding.inflate(getLayoutInflater());
+        binding = ActivitySearchResultBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // setup DB
         db = FirebaseFirestore.getInstance();
 
-        //setup the toolbar
+        intent = getIntent();
+
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
-        toolBarLayout.setTitle("Lost and Found");
+        toolBarLayout.setTitle("Results for " + intent.getSerializableExtra("query").toString());
         toolBarLayout.setCollapsedTitleTextAppearance(R.style.BitterBold);
         toolBarLayout.setExpandedTitleTextAppearance(R.style.BitterBold);
 
         // get location list
-        intent = getIntent();
         locations = (List<Locations>) intent.getSerializableExtra("locations");
 
-        // get the LinearLayout
         dyno = findViewById(R.id.dynamic);
-
-        // for each location, add a card
         int i = 0;
+
+        if(locations.isEmpty()) {
+            Snackbar.make(dyno, "No results were found", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
+
         for(Locations loc: locations) {
             addCard(dyno, loc, i++);
         }
 
-        // create the floating action button
         FloatingActionButton fab = binding.fab;
-        // set the image to what we want (search icon)
-        fab.setImageResource(R.drawable.search);
-        // listen for a click
-        // leads to -> `SearchActivity`
+        fab.setImageResource(R.drawable.back);
         fab.setOnClickListener(view -> {
-            intent = new Intent(getApplicationContext(), SearchActivity.class);
-            intent.putExtra("locations", (Serializable) locations);
-            startActivity(intent);
+            Intent back = new Intent(getApplicationContext(), SearchActivity.class);
+            startActivity(back);
         });
     }
 
-    /**
-     * addCard
-     *
-     * Dynamically adds a card to the view
-     *
-     * @param vg
-     * @param loc
-     * @param id
-     */
     public void addCard(ViewGroup vg, Locations loc, int id) {
-        // inflate the view with a `location_card`
         View v = LayoutInflater.from(this).inflate(R.layout.location_card, null);
-        // set the id
         v.setId(id);
 
-        // listen for a click on the card
-        // leads to -> `LocationView`
         v.setOnClickListener(vi -> {
             Intent intent = new Intent(getApplicationContext(), LocationView.class);
             intent.putExtra("Location", (Serializable) loc.getName());
@@ -132,12 +104,5 @@ public class ScrollingActivity extends AppCompatActivity {
 
         // add the card
         vg.addView(v);
-    }
-
-    @Override
-    public void onBackPressed() {
-        // override the back button to lead to `MapView`
-        Intent toMap = new Intent(getApplicationContext(), MapsActivity.class);
-        startActivity(toMap);
     }
 }

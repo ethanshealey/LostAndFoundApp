@@ -7,4 +7,21 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <!-- Defined a new style with three items of color. -->
+    <style name="DarkMode" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/black</item>
+        <!-- Defining that new color in ColorPrimaryDark -->
+        <item name="colorPrimaryDark">@color/dark_black</item>
+        <item name="colorAccent">@color/black</item>
+    </style>
+
+    <style name="Bitter">
+        <item name="android:fontFamily">@font/bitter</item>
+    </style>
+
+    <style name="BitterBold">
+        <item name="android:fontFamily">@font/bitter_bold</item>
+    </style>
+
 </resources>

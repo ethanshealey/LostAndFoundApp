@@ -1,5 +1,11 @@
 package com.example.lostandfound;
 
+/***
+ * Locations
+ *
+ * A class to store location data
+ */
+
 public class Locations implements java.io.Serializable {
 
     private String ID;
