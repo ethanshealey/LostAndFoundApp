@@ -39,9 +39,6 @@ public class LocationView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_view);
 
-        ActionBar ab = getSupportActionBar();
-        ab.hide();
-
         location = new Locations();
 
         locName = findViewById(R.id.location_name);

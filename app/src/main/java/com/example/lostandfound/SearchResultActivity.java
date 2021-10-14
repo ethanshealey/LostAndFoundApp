@@ -10,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,6 +53,8 @@ public class SearchResultActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
         toolBarLayout.setTitle("Results for " + intent.getSerializableExtra("query").toString());
+        toolBarLayout.setCollapsedTitleTextAppearance(R.style.BitterBold);
+        toolBarLayout.setExpandedTitleTextAppearance(R.style.BitterBold);
 
         // get location list
         locations = (List<Locations>) intent.getSerializableExtra("locations");
